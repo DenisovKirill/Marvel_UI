@@ -1,45 +1,41 @@
-import { Component } from "react/cjs/react.development";
+import { lazy, Suspense } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
+import Spinner from "../spinner/Spinner";
+import MainPage from "../../pages/MainPage";
+import ComicsPage from "../../pages/ComicsPage";
+import SingleComicPage from "../../pages/SingleComicPage";
 
-import decoration from "../../resources/img/vision.png";
+const Page404 = lazy(() => import("../../pages/404"));
+// import Page404 from "../../pages/404";
 
-class App extends Component {
-    state = {
-        selectedChar: null,
-    };
-
-    onCharSelected = (id) => {
-        this.setState({ selectedChar: id });
-    };
-
-    render() {
-        return (
+const App = () => {
+    return (
+        <Router>
             <div className="app">
                 <AppHeader />
-                <main>
-                    <RandomChar />
-                    <div className="char__content">
-                        <ErrorBoundary>
-                            <CharList onCharSelected={this.onCharSelected} />
-                        </ErrorBoundary>
-                        <ErrorBoundary>
-                            <CharInfo charId={this.state.selectedChar} />
-                        </ErrorBoundary>
-                    </div>
-                    <img
-                        className="bg-decoration"
-                        src={decoration}
-                        alt="vision"
-                    />
-                </main>
+                <Suspense fallback={<Spinner />}>
+                    <main>
+                        <Switch>
+                            <Route exact path="/">
+                                <MainPage />
+                            </Route>
+                            <Route exact path="/comics">
+                                <ComicsPage/>
+                            </Route>
+                            <Route exact path="/comics/:comicId">
+                                <SingleComicPage/>
+                            </Route>
+                            <Route exact path="*">
+                                <Page404/>
+                            </Route>
+                        </Switch>
+                    </main>
+                </Suspense>
             </div>
-        );
-    }
-}
+        </Router>
+    );
+};
 
 export default App;
