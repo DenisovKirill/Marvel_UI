@@ -93,7 +93,7 @@ const CharList = (props) => {
 const CharItem = (props) => {
     const defaultImg =
         props.thumbnail ===
-        "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
+        "https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
     const imgClass = classNames({
         "char__item-img": true,
         "img-default": defaultImg,

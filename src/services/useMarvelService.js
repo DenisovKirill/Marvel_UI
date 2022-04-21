@@ -1,4 +1,5 @@
 import useHttp from "../hooks/http.hook";
+import urlTransform from "./urlTransform";
 
 const useMarvelService = () => {
     const _apiBase = "https://gateway.marvel.com:443/v1/public/";
@@ -43,7 +44,7 @@ const useMarvelService = () => {
                     ? char.description
                     : `${char.description.slice(0, 200)}...`
                 : "No description available",
-            thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
+            thumbnail: `${urlTransform(char.thumbnail.path)}.${char.thumbnail.extension}`,
             homepage: char.urls[0].url,
             wiki: char.urls[1].url,
             comics: char.comics.items.slice(0, 10),
@@ -55,7 +56,7 @@ const useMarvelService = () => {
             id: comics.id,
             title: comics.title,
             description: comics.description || "No description available",
-            thumbnail: `${comics.thumbnail.path}.${comics.thumbnail.extension}`,
+            thumbnail: `${urlTransform(comics.thumbnail.path)}.${comics.thumbnail.extension}`,
             pageCount: comics.pageCount
                 ? `${comics.pageCount} p.`
                 : "No information about the number of pages",

@@ -47,7 +47,7 @@ const View = ({ char }) => {
     const { name, description, thumbnail, homepage, wiki, comics } = char;
     const defaultImg =
         thumbnail ===
-        "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
+        "https://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg";
     const imgClass = classNames({
         "char__basics-img": true,
         "img-default": defaultImg,
